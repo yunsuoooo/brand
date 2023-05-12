@@ -1,6 +1,20 @@
-import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
+import type { AppProps } from "next/app";
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
-}
+import "@/styles/globals.css";
+import { MobileNav } from "@/components/Layout/Nav";
+
+const MOBILE_NAV_HEIGHT = 20;
+
+const App = ({ Component, pageProps }: AppProps) => {
+  return (
+    <>
+      <div className={`pb-${MOBILE_NAV_HEIGHT}`}>
+        <Component {...pageProps} />
+      </div>
+
+      <MobileNav height={MOBILE_NAV_HEIGHT} />
+    </>
+  );
+};
+
+export default App;
