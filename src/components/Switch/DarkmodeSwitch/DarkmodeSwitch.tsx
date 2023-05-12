@@ -1,8 +1,13 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
+import Image from "next/image";
 
 type ColorTheme = "dark" | "light";
 
-const DarkmodeSwitch = () => {
+interface DarkmodeSwitchProps {
+  size: number;
+}
+
+const DarkmodeSwitch = ({ size }: DarkmodeSwitchProps) => {
   const [isDark, setIsDark] = useState<boolean>(true);
 
   useEffect(() => {
@@ -20,10 +25,10 @@ const DarkmodeSwitch = () => {
     const theme = userTheme || osTheme;
 
     if (theme === "dark") {
-      document.body.classList.add("dark");
+      document.documentElement.classList.add("dark");
       setIsDark(true);
     } else {
-      document.body.classList.remove("dark");
+      document.documentElement.classList.remove("dark");
       setIsDark(false);
     }
   }, []);
@@ -32,8 +37,8 @@ const DarkmodeSwitch = () => {
     localStorage.setItem("color-theme", isDark ? "dark" : "light");
 
     isDark
-      ? document.body.classList.add("dark")
-      : document.body.classList.remove("dark");
+      ? document.documentElement.classList.add("dark")
+      : document.documentElement.classList.remove("dark");
   };
 
   const toggleDarkMode = () => {
@@ -44,7 +49,7 @@ const DarkmodeSwitch = () => {
   };
 
   return (
-    <label className="p-4 border rounded my-2">
+    <label className="flex flex-col justify-center text-primary-dark dark:text-white">
       <input
         className="hidden"
         type="checkbox"
@@ -52,9 +57,16 @@ const DarkmodeSwitch = () => {
         checked={isDark}
         onChange={toggleDarkMode}
       />
-      {isDark ? "Dark Mode" : "Light Mode"}
+      <Image
+        src={`/images/${
+          isDark ? "star-front-gradient" : "sun-front-color"
+        }.png`}
+        alt={isDark ? "moon-icon" : "sun-icon"}
+        width={size}
+        height={size}
+      />
     </label>
   );
 };
 
-export default DarkmodeSwitch;
+export default memo(DarkmodeSwitch);

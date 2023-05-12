@@ -11,6 +11,12 @@ module.exports = {
       fontFamily: {
         varelaRound: ["var(--varelaRound)"],
       },
+      colors: {
+        primary: {
+          dark: "#221e2fff",
+          yellow: "#f5edc9ff",
+        },
+      },
     },
   },
   plugins: [],
