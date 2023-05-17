@@ -1,52 +1,18 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect } from "react";
 import Image from "next/image";
 
-type ColorTheme = "dark" | "light";
+import useStore from "@/store/useStore";
 
 interface DarkmodeSwitchProps {
   size: number;
 }
 
 const DarkmodeSwitch = ({ size }: DarkmodeSwitchProps) => {
-  const [isDark, setIsDark] = useState<boolean>(true);
+  const { isDarkTheme, setInitialColorTheme, changeColorTheme } = useStore();
 
   useEffect(() => {
-    if (!window) return;
-
-    const osTheme: ColorTheme = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches
-      ? "dark"
-      : "light";
-    const userTheme: ColorTheme = localStorage.getItem(
-      "color-theme"
-    ) as ColorTheme;
-
-    const theme = userTheme || osTheme;
-
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-      setIsDark(true);
-    } else {
-      document.documentElement.classList.remove("dark");
-      setIsDark(false);
-    }
-  }, []);
-
-  const saveTheme = (isDark: boolean) => {
-    localStorage.setItem("color-theme", isDark ? "dark" : "light");
-
-    isDark
-      ? document.documentElement.classList.add("dark")
-      : document.documentElement.classList.remove("dark");
-  };
-
-  const toggleDarkMode = () => {
-    setIsDark((prev) => {
-      saveTheme(!prev);
-      return !prev;
-    });
-  };
+    setInitialColorTheme();
+  }, [setInitialColorTheme]);
 
   return (
     <label className="flex flex-col justify-center text-primary-dark dark:text-white">
@@ -54,14 +20,14 @@ const DarkmodeSwitch = ({ size }: DarkmodeSwitchProps) => {
         className="hidden"
         type="checkbox"
         role="switch"
-        checked={isDark}
-        onChange={toggleDarkMode}
+        checked={isDarkTheme}
+        onChange={changeColorTheme}
       />
       <Image
         src={`/images/${
-          isDark ? "star-front-gradient" : "sun-front-color"
+          isDarkTheme ? "star-front-gradient" : "sun-front-color"
         }.png`}
-        alt={isDark ? "moon-icon" : "sun-icon"}
+        alt={isDarkTheme ? "moon-icon" : "sun-icon"}
         width={size}
         height={size}
       />
