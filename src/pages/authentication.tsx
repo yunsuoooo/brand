@@ -6,8 +6,11 @@ import {
   ChangeEvent,
 } from "react";
 
+const CODE_LENGTH = 6;
+
 const numberRegex = /^[0-9]+$/;
-const initAuthCode = new Array(6).fill("");
+
+const initAuthCode = new Array(CODE_LENGTH).fill("");
 
 const Authentication = () => {
   const [code, setCode] = useState<string[] | number[]>(initAuthCode);
@@ -22,15 +25,15 @@ const Authentication = () => {
       const key = e.key.toLowerCase();
       const isBackspace = key === "backspace";
 
-      if (isBackspace && index > 0) {
-        inputRefs.current[index - 1].focus();
-
-        if (e.currentTarget.value) {
-          const newCode = currentCode.slice();
-          newCode[index] = "";
-
-          setCode(newCode);
+      if (isBackspace) {
+        if (index > 0) {
+          inputRefs.current[index - 1].focus();
         }
+
+        const newCode = currentCode.slice();
+        newCode[index] = "";
+
+        setCode(newCode);
       }
     },
     [setCode]
@@ -47,23 +50,23 @@ const Authentication = () => {
       if (!value) return;
 
       const newCode = currentCode.slice();
-      let lastOrder = 0;
+      let nextInputIndex = 0;
 
       value
         .split("")
         .filter((v) => numberRegex.test(v))
         .forEach((v, order) => {
-          if (index + order > initAuthCode.length - 1) return;
+          if (index + order > CODE_LENGTH - 1) return;
 
           newCode[index + order] = v;
-          lastOrder = index + order;
+          nextInputIndex = index + order + 1;
         });
 
       setCode(newCode);
 
-      if (lastOrder) {
-        inputRefs.current[lastOrder]?.focus();
-      }
+      inputRefs.current[
+        nextInputIndex > CODE_LENGTH - 1 ? CODE_LENGTH - 1 : nextInputIndex
+      ]?.focus();
     },
     [setCode]
   );
