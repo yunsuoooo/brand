@@ -10,17 +10,17 @@ const CODE_LENGTH = 6;
 
 const numberRegex = /^[0-9]+$/;
 
-const initAuthCode = new Array(CODE_LENGTH).fill("");
+const initAuthCodes = new Array(CODE_LENGTH).fill("");
 
 const Authentication = () => {
-  const [code, setCode] = useState<string[] | number[]>(initAuthCode);
+  const [codes, setCode] = useState<(string | number)[]>(initAuthCodes);
   const inputRefs = useRef<HTMLInputElement[]>([]);
 
   const handleInputKeyDown = useCallback(
     (
       e: KeyboardEvent<HTMLInputElement>,
       index: number,
-      currentCode: string[] | number[]
+      currentCode: (string | number)[]
     ) => {
       const key = e.key.toLowerCase();
       const isBackspace = key === "backspace";
@@ -30,10 +30,10 @@ const Authentication = () => {
           inputRefs.current[index - 1].focus();
         }
 
-        const newCode = currentCode.slice();
-        newCode[index] = "";
+        const newCodes = currentCode.slice();
+        newCodes[index] = "";
 
-        setCode(newCode);
+        setCode(newCodes);
       }
     },
     [setCode]
@@ -43,42 +43,43 @@ const Authentication = () => {
     (
       e: ChangeEvent<HTMLInputElement>,
       index: number,
-      currentCode: string[] | number[]
+      currentCode: (string | number)[]
     ) => {
       const value = e.currentTarget.value;
-
       if (!value) return;
 
-      const newCode = currentCode.slice();
+      const splittedValue = value.split("").filter((v) => numberRegex.test(v));
+      if (!splittedValue.length) return;
+
+      const newCodes = currentCode.slice();
       let nextInputIndex = 0;
 
-      value
-        .split("")
-        .filter((v) => numberRegex.test(v))
-        .forEach((v, order) => {
-          if (index + order > CODE_LENGTH - 1) return;
+      splittedValue.forEach((v, order) => {
+        if (index + order > CODE_LENGTH - 1) return;
 
-          newCode[index + order] = v;
-          nextInputIndex = index + order + 1;
-        });
+        newCodes[index + order] = v;
+        nextInputIndex = index + order + 1;
+      });
 
-      setCode(newCode);
+      setCode(newCodes);
 
-      inputRefs.current[
-        nextInputIndex > CODE_LENGTH - 1 ? CODE_LENGTH - 1 : nextInputIndex
-      ]?.focus();
+      if (inputRefs.current) {
+        inputRefs.current[
+          nextInputIndex > CODE_LENGTH - 1 ? CODE_LENGTH - 1 : nextInputIndex
+        ]?.focus();
+      }
     },
     [setCode]
   );
 
-  const requestCheckVerifyCode = (code: number[]) => {};
+  const requestCheckVerifyCode = (codes: (string | number)[]) => {};
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen p-12 bg-slate-950 text-white">
       <div className="flex flex-col items-center p-8 bg-zinc-800 rounded-2xl">
         <p className="pb-4 text-xl text-center">Enter the 6-digit code.</p>
         <div className="flex gap-3">
-          {initAuthCode.map((_, index) => (
+          {initAuthCodes.map((_, index) => (
             <input
               key={index}
               ref={(el) => {
@@ -87,9 +88,9 @@ const Authentication = () => {
               className="bg-zinc-800 p-2 w-10 h-14 rounded text-3xl text-center border border-zinc-500"
               type="text"
               pattern="[0-9]+"
-              value={code[index]}
-              onChange={(e) => handleInputChange(e, index, code)}
-              onKeyDown={(e) => handleInputKeyDown(e, index, code)}
+              value={codes[index]}
+              onChange={(e) => handleInputChange(e, index, codes)}
+              onKeyDown={(e) => handleInputKeyDown(e, index, codes)}
               required
             />
           ))}
