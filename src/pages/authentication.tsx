@@ -13,6 +13,7 @@ const numberRegex = /^[0-9]+$/;
 const initAuthCodes = new Array(CODE_LENGTH).fill("");
 
 const Authentication = () => {
+  const [isVerifying, setIsVerifying] = useState<boolean>(false);
   const [codes, setCode] = useState<(string | number)[]>(initAuthCodes);
   const inputRefs = useRef<HTMLInputElement[]>([]);
 
@@ -38,6 +39,27 @@ const Authentication = () => {
     },
     [setCode]
   );
+
+  const checkCodeAndVerify = useCallback(
+    (
+      codes: (string | number)[],
+      afterCheckCallback: (code: string) => void
+    ) => {
+      if (codes.some((v) => !v)) return;
+
+      afterCheckCallback(codes.join(""));
+    },
+    []
+  );
+
+  const requestCheckVerifyCode = useCallback((code: string) => {
+    setIsVerifying(true);
+
+    setTimeout(() => {
+      console.log(code);
+      setIsVerifying(false);
+    }, 3000);
+  }, []);
 
   const handleInputChange = useCallback(
     (
@@ -68,16 +90,18 @@ const Authentication = () => {
           nextInputIndex > CODE_LENGTH - 1 ? CODE_LENGTH - 1 : nextInputIndex
         ]?.focus();
       }
-    },
-    [setCode]
-  );
 
-  const requestCheckVerifyCode = (codes: (string | number)[]) => {};
+      checkCodeAndVerify(newCodes, requestCheckVerifyCode);
+    },
+    [checkCodeAndVerify, requestCheckVerifyCode]
+  );
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen p-12 bg-slate-950 text-white">
       <div className="flex flex-col items-center p-8 bg-zinc-800 rounded-2xl">
-        <p className="pb-4 text-xl text-center">Enter the 6-digit code.</p>
+        <p className="pb-4 text-xl text-center">
+          {isVerifying ? "Verifying Code..." : "Enter the 6-digit code."}
+        </p>
         <div className="flex gap-3">
           {initAuthCodes.map((_, index) => (
             <input
@@ -85,23 +109,17 @@ const Authentication = () => {
               ref={(el) => {
                 if (el) inputRefs.current[index] = el;
               }}
-              className="bg-zinc-800 p-2 w-10 h-14 rounded text-3xl text-center border border-zinc-500"
+              className="bg-zinc-800 p-2 w-10 h-14 rounded text-3xl text-center border border-zinc-500 disabled:text-zinc-500"
               type="text"
               pattern="[0-9]+"
               value={codes[index]}
               onChange={(e) => handleInputChange(e, index, codes)}
               onKeyDown={(e) => handleInputKeyDown(e, index, codes)}
+              disabled={isVerifying}
               required
             />
           ))}
         </div>
-      </div>
-
-      <div className="pt-12">
-        <p className="text-sm">
-          * After entering the 6-digit code, verification is requested
-          automatically.
-        </p>
       </div>
     </div>
   );
