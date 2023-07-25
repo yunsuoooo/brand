@@ -97,7 +97,7 @@ const Authentication = () => {
   );
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen p-12 bg-slate-950 text-white">
+    <div className="flex flex-col justify-center items-center p-12 text-white">
       <div className="flex flex-col items-center p-8 bg-zinc-800 rounded-2xl">
         <p className="pb-4 text-xl text-center">
           {isVerifying ? "Verifying Code..." : "Enter the 6-digit code."}

@@ -25,7 +25,7 @@ const Layout = ({ children }: LayoutProps) => {
       <Header />
       <main
         className={cls(
-          "flex flex-col items-center transition min-h-screen p-8 flex flex-col gap-8",
+          "flex flex-col items-center transition min-h-screen p-8 gap-8",
           notoSansKr.className,
           varelaRound.className
         )}

@@ -5,7 +5,12 @@ const Home = () => {
     <>
       <h1>This is ME</h1>
       <div className="w-32 rounded-lg overflow-hidden">
-        <Image src="/images/me.png" alt="me" width="1080" height="1080" />
+        <Image
+          src="/images/main_image.png"
+          alt="me"
+          width="1080"
+          height="1080"
+        />
       </div>
     </>
   );

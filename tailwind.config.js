@@ -12,10 +12,14 @@ module.exports = {
         varelaRound: ["var(--varelaRound)"],
       },
       colors: {
-        primary: {
-          dark: "#221e2fff",
-          yellow: "#f5edc9ff",
+        theme: {
+          dark: {
+            header: "#171717",
+          },
         },
+      },
+      spacing: {
+        "screen-lg": "1024px",
       },
     },
   },

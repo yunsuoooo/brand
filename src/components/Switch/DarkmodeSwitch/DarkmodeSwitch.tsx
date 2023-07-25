@@ -15,7 +15,7 @@ const DarkmodeSwitch = ({ size }: DarkmodeSwitchProps) => {
   }, [setInitialColorTheme]);
 
   return (
-    <label className="flex flex-col justify-center text-primary-dark dark:text-white">
+    <label className="flex flex-col justify-center text-black dark:text-white">
       <input
         className="hidden"
         type="checkbox"
