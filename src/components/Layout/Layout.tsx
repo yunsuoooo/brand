@@ -30,7 +30,7 @@ const Layout = ({ children }: LayoutProps) => {
           varelaRound.className
         )}
       >
-        {children}
+        <div className="w-full lg:w-screen-lg">{children}</div>
       </main>
     </>
   );
