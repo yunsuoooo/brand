@@ -10,7 +10,7 @@ overrides:
 
 dependencies:
   '@notionhq/client':
-    specifier: ^2.2.9
+    specifier: ^2.2.14
     version: 2.2.14
   '@types/node':
     specifier: 18.16.3
