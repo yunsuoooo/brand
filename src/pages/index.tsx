@@ -5,6 +5,7 @@ import Image from "next/image";
 
 import { getPosts } from "./api/getPosts";
 import { TPost } from "@/types";
+import { Mesh } from "three";
 
 const Home: NextPage<{ posts: TPost[] }> = ({ posts }: { posts: TPost[] }) => {
   return (
@@ -59,14 +60,16 @@ export default Home;
 
 function Box(props: any) {
   // This reference will give us direct access to the mesh
-  const meshRef = useRef();
+  const meshRef = useRef<Mesh>();
   // Set up state for the hovered and active state
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
   // Subscribe this component to the render-loop, rotate the mesh every frame
-  useFrame((state, delta) =>
-    meshRef.current ? meshRef.current.rotation.x : (0 += delta)
-  );
+  useFrame((_, delta) => {
+    if (!meshRef.current) return;
+
+    return (meshRef.current.rotation.x += delta);
+  });
   // Return view, these are regular three.js elements expressed in JSX
   return (
     <mesh
