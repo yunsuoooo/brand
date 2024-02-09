@@ -1,7 +1,6 @@
 import { GetStaticProps, NextPage } from "next";
 import { useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import Image from "next/image";
 
 import { getPosts } from "./api/getPosts";
 import { TPost } from "@/types";
@@ -11,15 +10,6 @@ const Home: NextPage<{ posts: TPost[] }> = ({ posts }: { posts: TPost[] }) => {
   return (
     <>
       <div className="flex w-fyll">
-        <div className="rounded-lg overflow-hidden object-cover">
-          <Image
-            src="/images/main_image.png"
-            alt="me"
-            width="120"
-            height="80"
-            className="rounded-full overflow-hidden"
-          />
-        </div>
         <p className="w-full">YUNSU LIM</p>
       </div>
       <div className="mt-4 p-4 border rounded w-fit">
