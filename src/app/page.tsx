@@ -1,8 +1,9 @@
 import notionAPI from "@/lib/notion";
+import { queryClient } from "@/lib/react-query";
 import Item from "@/components/Item";
 
 const HomePage = async () => {
-  const posts = await notionAPI.getPosts();
+  const posts = await getNotionPosts();
 
   return (
     <div className="flex flex-col w-fyll">
@@ -19,3 +20,11 @@ const HomePage = async () => {
 };
 
 export default HomePage;
+
+const getNotionPosts = async () => {
+  const posts = await notionAPI.getPosts();
+
+  queryClient.setQueryData(["posts"], posts);
+
+  return posts;
+};
