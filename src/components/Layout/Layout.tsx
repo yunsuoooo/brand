@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Noto_Sans_KR, Varela_Round } from "next/font/google";
 
-import { cls } from "@/utils/tailwindUtil";
+import { cn } from "@/lib/utils";
 
 const notoSansKr = Noto_Sans_KR({
   subsets: ["latin"],
@@ -22,7 +22,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <main
-        className={cls(
+        className={cn(
           "flex flex-col items-center transition min-h-screen p-8 gap-8",
           notoSansKr.className,
           varelaRound.className

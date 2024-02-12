@@ -1,38 +1,20 @@
-import notion from "@/hooks/notion";
+import { Client } from "@notionhq/client";
 import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
-const notionDatabaseId = process.env.NEXT_PUBLIC_NOTION_DATABASE_ID as string;
+import type { PostView } from "@/types";
 
-type NotionSelectColor =
-  | "default"
-  | "gray"
-  | "brown"
-  | "orange"
-  | "yellow"
-  | "green"
-  | "blue"
-  | "purple"
-  | "pink"
-  | "red";
-type PostTag = {
-  id: string;
-  name: string;
-  color: NotionSelectColor;
-};
-type PostView = {
-  id: string;
-  createdAt: string;
-  title: string;
-  cover: string;
-  tags: Array<PostTag>;
-};
+const NOTION_DATABASE_ID = process.env.NEXT_PUBLIC_NOTION_DATABASE_ID as string;
 
-export async function getPosts() {
+const notion = new Client({
+  auth: process.env.NEXT_PUBLIC_NOTION_TOKEN,
+});
+
+const getNotionPosts = async () => {
   const database = await notion.databases.query({
-    database_id: notionDatabaseId,
+    database_id: NOTION_DATABASE_ID,
   });
 
-  const posts = database.results.map((page) => {
+  return database.results.map((page) => {
     const data = page as PageObjectResponse;
 
     const post = {
@@ -53,6 +35,8 @@ export async function getPosts() {
 
     return post;
   });
+};
 
-  return posts;
-}
+const notionAPI = { getPosts: getNotionPosts };
+
+export default notionAPI;
