@@ -40,7 +40,7 @@ export type NotionSelectColor =
   | "pink"
   | "red";
 
-export type PostTag = {
+export type Tag = {
   id: string;
   name: string;
   color: NotionSelectColor;
@@ -51,5 +51,5 @@ export type PostView = {
   createdAt: string;
   title: string;
   cover: string;
-  tags: Array<PostTag>;
+  tags: Array<Tag>;
 };
