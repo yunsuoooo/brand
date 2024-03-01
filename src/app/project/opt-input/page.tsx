@@ -1,3 +1,5 @@
+"use client";
+
 import {
   useRef,
   useState,
@@ -12,7 +14,7 @@ const numberRegex = /^[0-9]+$/;
 
 const initAuthCodes = new Array(CODE_LENGTH).fill("");
 
-const Authentication = () => {
+const OPTInput = () => {
   const [isVerifying, setIsVerifying] = useState<boolean>(false);
   const [codes, setCode] = useState<(string | number)[]>(initAuthCodes);
   const inputRefs = useRef<HTMLInputElement[]>([]);
@@ -125,4 +127,4 @@ const Authentication = () => {
   );
 };
 
-export default Authentication;
+export default OPTInput;

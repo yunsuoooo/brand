@@ -1,5 +1,7 @@
+// theme
 export type ColorTheme = "dark" | "light";
 
+// notion
 export type TPostStatus = "Private" | "Public";
 
 export type TPost = {
@@ -24,4 +26,30 @@ export type TTags = {
 
 export type TCategories = {
   [category: string]: number;
+};
+
+export type NotionSelectColor =
+  | "default"
+  | "gray"
+  | "brown"
+  | "orange"
+  | "yellow"
+  | "green"
+  | "blue"
+  | "purple"
+  | "pink"
+  | "red";
+
+export type Tag = {
+  id: string;
+  name: string;
+  color: NotionSelectColor;
+};
+
+export type PostView = {
+  id: string;
+  createdAt: string;
+  title: string;
+  cover: string;
+  tags: Array<Tag>;
 };
