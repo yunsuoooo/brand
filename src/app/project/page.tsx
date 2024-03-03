@@ -1,7 +1,5 @@
-import { NextPage } from "next";
-
-const ProjectPage: NextPage = () => {
-  return <></>;
+const ProjectPage = () => {
+  return <main>PROJECT</main>;
 };
 
 export default ProjectPage;
