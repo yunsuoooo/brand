@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  web:
+    container_name: web
+    build:
+      context: .
+      target: web
+    restart: always
+    command: pnpm dev
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_NOTION_DATABASE_ID=${NEXT_PUBLIC_NOTION_DATABASE_ID}
+      - NEXT_PUBLIC_NOTION_TOKEN=${NEXT_PUBLIC_NOTION_TOKEN}
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    ports:
+      - 3000:3000
