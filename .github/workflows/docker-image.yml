@@ -11,6 +11,22 @@ env:
   NEXT_PUBLIC_NOTION_TOKEN: ${{ secrets.NEXT_PUBLIC_NOTION_TOKEN }}
 
 jobs:
+  echo-secret:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Read a secrets
+        run: echo "My NEXT_PUBLIC_NOTION_DATABASE_ID value is ${{ secrets.NEXT_PUBLIC_NOTION_DATABASE_ID }}"
+
+      - name: Read a secrets
+        run: echo "My NEXT_PUBLIC_NOTION_TOKEN value is ${{ secrets.NEXT_PUBLIC_NOTION_TOKEN }}"
+
+      - uses: actions/checkout@v2
+      - name: Read the env from an external script
+        run: |
+          chmod +x .github/scripts/custom.sh
+          .github/scripts/custom.sh
+        shell: bash
+
   build:
     name: Build and Push to ECR
     runs-on: ubuntu-latest
