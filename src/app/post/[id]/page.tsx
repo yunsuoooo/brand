@@ -9,7 +9,7 @@ interface PageProps {
   params: Promise<{ id: string }>;
 }
 
-const PostPage = async ({ params }: PageProps) => {
+async function PostPage({ params }: PageProps) {
   const { id } = await params;
   const { title, createdAt, tags, blocks } = await getPost(id);
 
@@ -19,7 +19,7 @@ const PostPage = async ({ params }: PageProps) => {
       <p>createdAt: {createdAt}</p>
     </>
   );
-};
+}
 
 export default PostPage;
 

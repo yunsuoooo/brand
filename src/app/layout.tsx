@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 
 import Provider from "./provider";
+import { Layout } from "@/components/layout";
 import "./global.css";
-import { Layout } from "@/components/Layout";
 
 export default function RootLayout({
   children,
