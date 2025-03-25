@@ -21,6 +21,6 @@ export default function RootLayout({
 }
 
 export const metadata: Metadata = {
-  title: "Home",
-  description: "Welcome to Next.js",
+  title: "yunsu Lim - personal Site",
+  description: "Nothing special, yet somehow, everything is.",
 };
