@@ -1,19 +1,22 @@
-import notionAPI from "@/lib/notion";
-import { NotionTagColor } from "@/constants";
-import { cn } from "@/lib/utils";
+import { Metadata } from "next";
 
-const PostPage = async ({ params }: { params: { id: string } }) => {
-  const { title, createdAt, tags, blocks } = await getPost(params.id);
+export const metadata: Metadata = {
+  title: "Post",
+  description: "Post page",
+};
+
+interface PageProps {
+  params: Promise<{ id: string }>;
+}
+
+const PostPage = async ({ params }: PageProps) => {
+  const { id } = await params;
+  const { title, createdAt, tags, blocks } = await getPost(id);
 
   return (
     <>
       <p>post: {title}</p>
       <p>createdAt: {createdAt}</p>
-      {tags.map((tag) => (
-        <div className={cn(`bg-${NotionTagColor[tag.color]}`)} key={tag.id}>
-          {tag.name}
-        </div>
-      ))}
     </>
   );
 };
@@ -21,7 +24,10 @@ const PostPage = async ({ params }: { params: { id: string } }) => {
 export default PostPage;
 
 const getPost = async (id: string) => {
-  const post = await notionAPI.getPage(id);
-
-  return post;
+  return {
+    title: "title",
+    createdAt: "2021-01-01",
+    tags: ["tag1", "tag2"],
+    blocks: ["block1", "block2"],
+  };
 };

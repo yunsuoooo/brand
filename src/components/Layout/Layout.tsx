@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { Noto_Sans_KR, Varela_Round } from "next/font/google";
+import type { JSX } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -20,17 +21,15 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <>
-      <main
-        className={cn(
-          "flex flex-col items-center transition min-h-screen p-8 gap-8",
-          notoSansKr.className,
-          varelaRound.className
-        )}
-      >
-        <div className="w-full lg:w-screen-lg">{children}</div>
-      </main>
-    </>
+    <main
+      className={cn(
+        "flex flex-col items-center transition min-h-screen p-8 gap-8",
+        notoSansKr.className,
+        varelaRound.className
+      )}
+    >
+      <div className="w-full lg:w-screen-lg">{children}</div>
+    </main>
   );
 };
 

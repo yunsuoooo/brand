@@ -24,7 +24,7 @@ function Item() {
 
 function Box(props: any) {
   // This reference will give us direct access to the mesh
-  const meshRef = useRef<Mesh>();
+  const meshRef = useRef<Mesh>(null);
   // Set up state for the hovered and active state
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
