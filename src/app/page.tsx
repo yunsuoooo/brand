@@ -1,9 +1,5 @@
 function HomePage() {
-  return (
-    <div className="flex flex-col w-fyll">
-      <p className="w-full">YUNSU LIM</p>
-    </div>
-  );
+  return <div className="flex flex-col w-full">Main</div>;
 }
 
 export default HomePage;

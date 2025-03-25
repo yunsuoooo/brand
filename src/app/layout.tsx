@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 
 import Provider from "./provider";
+import { Navigation } from "@/widgets/layout/ui";
+
 import "./global.css";
 
 export default function RootLayout({
@@ -13,7 +15,9 @@ export default function RootLayout({
       <head>
         <link rel="icon" type="image/svg+xml" href="favicon.svg" />
       </head>
-      <body className="transition min-h-screen overflow-hidden bg-background text-foreground">
+      <body className="relative transition min-h-screen bg-background text-foreground">
+        <Navigation />
+
         <Provider>{children}</Provider>
       </body>
     </html>
