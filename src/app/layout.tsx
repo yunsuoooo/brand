@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 
 import Provider from "./provider";
-import { Layout } from "@/components/layout";
 import "./global.css";
 
 export default function RootLayout({
@@ -15,9 +14,7 @@ export default function RootLayout({
         <link rel="icon" type="image/svg+xml" href="favicon.svg" />
       </head>
       <body className="transition min-h-screen bg-black text-white">
-        <Provider>
-          <Layout>{children}</Layout>
-        </Provider>
+        <Provider>{children}</Provider>
       </body>
     </html>
   );
