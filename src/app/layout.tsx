@@ -15,7 +15,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" type="image/svg+xml" href="favicon.svg" />
       </head>
-      <body className="relative transition min-h-screen bg-background text-foreground">
+      <body className="bg-background text-foreground">
         <Navigation />
 
         <Provider>{children}</Provider>
@@ -26,5 +26,5 @@ export default function RootLayout({
 
 export const metadata: Metadata = {
   title: "yunsu Lim - personal Site",
-  description: "Nothing special, yet somehow, everything is.",
+  description: "Building better systems through code. One commit at a time.",
 };
