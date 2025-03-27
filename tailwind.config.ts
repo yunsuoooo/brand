@@ -18,6 +18,7 @@ const config = {
     },
     extend: {
       fontFamily: {
+        sans: ["var(--font-apercu)", "ui-sans-serif", "system-ui", "sans-serif"],
         varelaRound: ["var(--varelaRound)"],
       },
       colors: {
