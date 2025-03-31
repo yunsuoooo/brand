@@ -14,7 +14,7 @@ function Navigation() {
 
       {/* menus */}
       <div className="flex flex-row gap-2">
-        <div className="flex flex-row gap-2">
+        <div className="flex flex-row gap-4">
           <Link className="text-foreground hover:underline" href="/posts">
             Posts
           </Link>
